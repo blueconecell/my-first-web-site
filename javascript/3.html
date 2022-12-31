@@ -4,7 +4,8 @@
   <title>WEB1 - JavaScript</title>
   <meta charset="utf-8">
   <script>
-    function linksSetColor(color){
+    var Links = {
+      setColor:function(color){
       var alist = document.querySelectorAll('a');
       var i = 0;
       while(i < alist.length){
@@ -12,24 +13,42 @@
         i++;
       }
     }
-    function bodySetColor(color){
-      document.querySelector('body').style.color = color
     }
-    function bodySetBackgroundColor(color){
-      document.querySelector('body').style.backgroundColor = color
+    // function linksSetColor(color){
+    //   var alist = document.querySelectorAll('a');
+    //   var i = 0;
+    //   while(i < alist.length){
+    //     alist[i].style.color = color;
+    //     i++;
+    //   }
+    // }
+
+    var Body = {
+      setColor:function(color){
+        document.querySelector('body').style.color = color;
+      },
+      setBackgroundColor:function(color){
+        document.querySelector('body').style.backgroundColor = color;
+      }
     }
+    // function bodySetColor(color){
+    //   document.querySelector('body').style.color = color
+    // }
+    // function bodySetBackgroundColor(color){
+    //   document.querySelector('body').style.backgroundColor = color
+    // }
     function nightDayHandler(self){
       var target = document.querySelector('body');
       if (self.value === 'night') {
-        bodySetBackgroundColor('black')
-        bodySetColor('white');
+        Body.setBackgroundColor('black')
+        Body.setColor('white');
         self.value = 'day';
-        linksSetColor('powderblue')
+        Links.setColor('powderblue')
       } else {
-        bodySetBackgroundColor('white')
-        bodySetColor('black');
+        Body.setBackgroundColor('white')
+        Body.setColor('black');
         self.value = 'night';
-        linksSetColor('blue')
+        Links.setColor('blue')
       }
     }
     
