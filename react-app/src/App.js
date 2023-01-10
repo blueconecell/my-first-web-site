@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import {useState} from 'react';
 function Header(props){
@@ -99,10 +99,22 @@ function App() {
       }
     }
     content = <Article title={title} body={body}></Article>
-    contextControl = <li><a href={'/update/'+id} onClick={event=>{
-      event.preventDefault();
-      setMode('UPDATE');
-    }}>Update</a></li>
+    contextControl = <>
+    <li><a href={'/update/'+id} onClick={event=>{
+        event.preventDefault();
+        setMode('UPDATE');
+      }}>Update</a></li>
+      <li><input type="button" value="Delete" onClick={()=>{
+        const newTopics = []
+        for(let i=0; i<topics.length; i++){
+          if(topics[i].id !== id){
+            newTopics.push(topics[i]);
+          }
+        }
+        setTopics(newTopics);
+        setMode('WELCOME');
+      }}/></li>
+    </>
   }else if(mode === 'CREATE'){
     content = <Create onCreate={(_title, _body)=>{
       const newTopic = {id:nextId, title:_title, body:_body}
