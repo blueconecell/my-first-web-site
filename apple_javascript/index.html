@@ -7,16 +7,18 @@
     <title>Document</title>
     <link rel="stylesheet" href="main.css">
 </head>
+
 <body>
-    <div class="alert-box" id="alert">Alert 박스<button onclick="_close()">close</button></div>
-    <button onclick="_open()">버튼</button>
+    <div class="alert-box" id="alert">Alert 박스<button onclick="_edit('none')">close</button></div>
+    <button onclick=" _innerText('id missing'); _edit('block');">버튼1</button>
+    <button onclick="_edit('block'); _innerText('pw missing');">버튼2</button>
 
     <script>
-        function _open(){
-            document.getElementById('alert').style.display = 'block';
+        function _edit(inn){
+            document.getElementById('alert').style.display=inn;
         }
-        function _close(){
-            document.getElementById('alert').style.display='none';
+        function _innerText(inn){
+            document.getElementById('alert').innerHTML = inn;
         }
     </script>
 </body>
