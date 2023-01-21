@@ -9,16 +9,22 @@
 </head>
 
 <body>
-    <div class="alert-box" id="alert">Alert 박스<button onclick="_edit('none')">close</button></div>
+    <div class="alert-box" id="alert">
+        <p id="p">Alert 박스</p>
+    <button id="closer">close</button></div>
     <button onclick=" _innerText('id missing'); _edit('block');">버튼1</button>
     <button onclick="_edit('block'); _innerText('pw missing');">버튼2</button>
 
     <script>
+
+        document.getElementById('closer').addEventListener('click', function(){_edit('none')});
+
         function _edit(inn){
             document.getElementById('alert').style.display=inn;
         }
         function _innerText(inn){
-            document.getElementById('alert').innerHTML = inn;
+            document.getElementById('p').innerHTML = inn;
+
         }
     </script>
 </body>
