@@ -8,11 +8,16 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    <div class="alert-box" id="alert">Alert 박스,<button onclick="document.getElementById('alert').style.display='none';">close</button></div>
-    <button onclick="document.getElementById('alert').style.display = 'block';">버튼</button>
+    <div class="alert-box" id="alert">Alert 박스<button onclick="_close()">close</button></div>
+    <button onclick="_open()">버튼</button>
 
     <script>
-
+        function _open(){
+            document.getElementById('alert').style.display = 'block';
+        }
+        function _close(){
+            document.getElementById('alert').style.display='none';
+        }
     </script>
 </body>
 </html>
