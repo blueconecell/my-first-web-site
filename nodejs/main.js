@@ -2,6 +2,7 @@ var http = require("http");
 var fs = require("fs");
 var url = require("url");
 var qs = require("querystring");
+const { title } = require("process");
 function templateHTML(title, list, body) {
   return `
   <!doctype html>
@@ -19,11 +20,20 @@ function templateHTML(title, list, body) {
   </html>
   `;
 }
+function checkTitleForm(titleName) {
+  if (!parseInt(titleName.substring(0, 1))) {
+    return titleName;
+  } else {
+    return titleName.substring(3);
+  }
+}
 function templateList(filelist) {
   var list = "<ul>";
   var i = 0;
+
   while (i < filelist.length) {
-    list += `<li><a href="/?id=${filelist[i]}">${filelist[i].substring(3)}</a></li>`;
+    var titleName = checkTitleForm(filelist[i]);
+    list += `<li><a href="/?id=${filelist[i]}">${titleName}</a></li>`;
     i++;
   }
   list = list + "</ul>";
@@ -50,8 +60,11 @@ var app = http.createServer(function (request, response) {
         console.log(filelist);
         fs.readFile(`data/${queryData.id}`, "utf8", function (err, description) {
           var title = queryData.id;
+          console.log("querdyData.id : " + queryData.id);
           var list = templateList(filelist);
-          var template = templateHTML(title, list, `<h2>${title.substring(3)}</h2>${description}`);
+          var titleName = checkTitleForm(title);
+          console.log(parseInt(title.substring(0, 1)));
+          var template = templateHTML(title, list, `<h2>${titleName}</h2>${description}`);
           response.writeHead(200);
           response.end(template);
         });
@@ -88,9 +101,11 @@ var app = http.createServer(function (request, response) {
       var post = qs.parse(body);
       var title = post.title;
       var description = post.description;
+      fs.writeFile(`data/${title}`, description, "utf8", function (err) {
+        response.writeHead(302, { Location: `/?id=${title}` });
+        response.end("success");
+      });
     });
-    response.writeHead(200);
-    response.end("success");
   } else {
     response.writeHead(404);
     response.end("Not found");
